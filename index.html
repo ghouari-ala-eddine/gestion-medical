@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MediCore - Gestion des Dossiers</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script type="module" crossorigin src="/gestion-medical/assets/index-CmsKVoN7.js"></script>
+    <link rel="stylesheet" crossorigin href="/gestion-medical/assets/index-laWm_n8T.css">
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <i class="ph-fill ph-heartbeat icon-logo"></i>
+          <h2>MediCore</h2>
+        </div>
+        <nav class="sidebar-nav">
+          <button class="nav-item active" data-view="dashboard">
+            <i class="ph ph-squares-four"></i> Table de bord
+          </button>
+          <button class="nav-item" data-view="patients">
+            <i class="ph ph-users"></i> Patients
+          </button>
+          <button class="nav-item" data-view="archives">
+            <i class="ph ph-archive"></i> Archives
+          </button>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-info">
+            <div class="avatar">AM</div>
+            <div class="details">
+              <span class="name">Assistant Médical</span>
+              <span class="role">Service Hospitalier</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Dashboard View -->
+        <section id="view-dashboard" class="view-section active">
+          <header class="view-header">
+            <div>
+              <h1>Bonjour, Assistant 👋</h1>
+              <p class="subtitle">Voici un aperçu de l'activité du service aujourd'hui.</p>
+            </div>
+            <button class="btn btn-primary" id="btn-quick-add-patient">
+              <i class="ph ph-plus"></i> Nouveau Patient
+            </button>
+          </header>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon bg-blue-light">
+                <i class="ph ph-users text-blue"></i>
+              </div>
+              <div class="stat-details">
+                <h3>Patients Actifs</h3>
+                <p id="stat-active-patients">0</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon bg-green-light">
+                <i class="ph ph-file-text text-green"></i>
+              </div>
+              <div class="stat-details">
+                <h3>Dossiers Médicaux</h3>
+                <p id="stat-total-records">0</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon bg-orange-light">
+                <i class="ph ph-archive text-orange"></i>
+              </div>
+              <div class="stat-details">
+                <h3>Dossiers Archivés</h3>
+                <p id="stat-archived-patients">0</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="recent-section">
+            <div class="section-header">
+              <h2>Patients Récents</h2>
+              <button class="btn btn-text" data-goto="patients">Voir tout</button>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nom Complet</th>
+                    <th>Âge</th>
+                    <th>Sexe</th>
+                    <th>Dernière Visite</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="recent-patients-list">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Patients View -->
+        <section id="view-patients" class="view-section">
+          <header class="view-header">
+            <div>
+              <h1>Patients</h1>
+              <p class="subtitle">Gérez la liste active de vos patients.</p>
+            </div>
+            <button class="btn btn-primary" id="btn-add-patient">
+              <i class="ph ph-plus"></i> Ajouter Patient
+            </button>
+          </header>
+
+          <div class="search-bar">
+            <i class="ph ph-magnifying-glass"></i>
+            <input type="text" id="search-patient" placeholder="Rechercher par nom ou ID..." />
+          </div>
+
+          <div class="grid-container" id="patients-grid">
+            <!-- Injected via JS -->
+          </div>
+        </section>
+
+        <!-- Patient Details / Dossier View -->
+        <section id="view-patient-details" class="view-section">
+          <button class="btn btn-back" id="btn-back-patients">
+            <i class="ph ph-arrow-left"></i> Retour aux patients
+          </button>
+          
+          <div class="profile-header">
+            <div class="profile-info-main" id="profile-info-main">
+              <!-- JS -->
+            </div>
+            <div class="profile-extra-info" id="profile-extra-info">
+              <!-- JS -->
+            </div>
+            <div class="profile-actions">
+              <button class="btn btn-secondary" id="btn-archive-patient">
+                <i class="ph ph-archive"></i> Archiver
+              </button>
+              <button class="btn btn-primary" id="btn-add-record">
+                <i class="ph ph-file-plus"></i> Ajouter Consultation
+              </button>
+            </div>
+          </div>
+
+          <div class="records-timeline">
+            <h2>Historique Médical</h2>
+            <div class="timeline" id="records-list">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Archives View -->
+        <section id="view-archives" class="view-section">
+          <header class="view-header">
+            <div>
+              <h1>Archives</h1>
+              <p class="subtitle">Dossiers et patients archivés.</p>
+            </div>
+          </header>
+
+          <div class="table-container mt-4">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nom Complet</th>
+                  <th>Date d'Archivage</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="archived-patients-list">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Add Patient Modal -->
+    <div class="modal-overlay" id="modal-add-patient">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Nouveau Patient</h2>
+          <button class="btn-close" id="btn-close-patient-modal"><i class="ph ph-x"></i></button>
+        </div>
+        <form id="form-add-patient" class="modal-body">
+          <div class="form-group">
+            <label>Nom Complet</label>
+            <input type="text" name="name" required placeholder="Ex: Jean Dupont">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Âge</label>
+              <input type="number" name="age" required placeholder="Ex: 34">
+            </div>
+            <div class="form-group">
+              <label>Sexe</label>
+              <select name="gender" required>
+                <option value="Homme">Homme</option>
+                <option value="Femme">Femme</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Téléphone</label>
+              <input type="tel" name="phone" placeholder="Ex: 0555...">
+            </div>
+            <div class="form-group">
+              <label>Groupe Sanguin</label>
+              <select name="bloodType">
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Médecin Traitant</label>
+              <input type="text" name="doctor" placeholder="Ex: Dr. Martin">
+            </div>
+            <div class="form-group">
+              <label>Médicaments Actuels</label>
+              <input type="text" name="medications" placeholder="Ex: Paracétamol, Insuline...">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="btn-cancel-patient">Annuler</button>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Add Record Modal -->
+    <div class="modal-overlay" id="modal-add-record">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Nouvelle Consultation</h2>
+          <button class="btn-close" id="btn-close-record-modal"><i class="ph ph-x"></i></button>
+        </div>
+        <form id="form-add-record" class="modal-body">
+          <input type="hidden" name="patientId" id="record-patient-id">
+          <div class="form-group">
+            <label>Date de Consultation</label>
+            <input type="date" name="date" required id="record-date-input">
+          </div>
+          <div class="form-group">
+            <label>Motif / Diagnostic</label>
+            <input type="text" name="diagnosis" required placeholder="Ex: Grippe saisonnière">
+          </div>
+          <div class="form-group">
+            <label>Notes / Ordonnance</label>
+            <textarea name="notes" rows="4" placeholder="Détails de la consultation..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Fichier Joint (PDF optionnel)</label>
+            <input type="file" name="pdfAttachment" id="record-pdf-input" accept=".pdf">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="btn-cancel-record">Annuler</button>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </body>
+</html>
